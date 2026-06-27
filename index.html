@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD de Produtos - Visualização em Bytes</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>📦 CRUD de Produtos com Visualização em Bytes</h1>
+        <p>Disciplina AEDs III · PUC Minas</p>
+    </header>
+
+    <main>
+        <!-- Formulários -->
+        <section id="forms">
+            <!-- Inserir -->
+            <div class="form-card">
+                <h2>➕ Inserir Produto</h2>
+                <div class="form-row">
+                    <input type="number" id="inserir-id" placeholder="ID">
+                    <input type="text" id="inserir-nome" placeholder="Nome">
+                    <input type="number" step="0.01" id="inserir-preco" placeholder="Preço">
+                    <input type="number" id="inserir-qtd" placeholder="Quantidade">
+                    <button id="btn-inserir">Inserir</button>
+                </div>
+            </div>
+
+            <!-- Buscar -->
+            <div class="form-card">
+                <h2>🔍 Buscar Produto</h2>
+                <div class="form-row">
+                    <input type="number" id="buscar-id" placeholder="ID">
+                    <button id="btn-buscar">Buscar</button>
+                </div>
+                <div id="resultado-busca" class="result-box"></div>
+            </div>
+
+            <!-- Alterar -->
+            <div class="form-card">
+                <h2>✏️ Alterar Produto</h2>
+                <div class="form-row">
+                    <input type="number" id="alterar-id" placeholder="ID">
+                    <select id="alterar-campo">
+                        <option value="nome">Nome</option>
+                        <option value="preco">Preço</option>
+                        <option value="quantidade">Quantidade</option>
+                    </select>
+                    <input type="text" id="alterar-valor" placeholder="Novo valor">
+                    <button id="btn-alterar">Alterar</button>
+                </div>
+            </div>
+
+            <!-- Excluir -->
+            <div class="form-card">
+                <h2>🗑️ Excluir Produto</h2>
+                <div class="form-row">
+                    <input type="number" id="excluir-id" placeholder="ID">
+                    <button id="btn-excluir">Excluir</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mensagem de feedback -->
+        <div id="mensagem" class="mensagem"></div>
+
+        <!-- Visualização dos bytes -->
+        <section id="visualizacao">
+            <h2>🧩 Visualização dos Bytes (Arquivo)</h2>
+            <div id="bytes-visualization"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Trabalho Prático 4 · AEDs III · PUC Minas</p>
+    </footer>
+
+    <!-- Carrega as bibliotecas e scripts -->
+    <script src="js/ByteStream.js"></script>
+    <script src="js/dados.js"></script>
+    <script src="js/crud.js"></script>
+    <script src="js/render.js"></script>
+    <script src="js/controller.js"></script>
+</body>
+</html>
