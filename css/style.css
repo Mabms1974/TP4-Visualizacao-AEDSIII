@@ -143,8 +143,160 @@ header p {
     margin-bottom: 15px;
 }
 
-/* Os estilos para .bytes-* já foram fornecidos na Parte C */
-/* Inclua aqui os estilos da Parte C (que estão na resposta anterior) */
+/* ==========================================
+   PARTE C – ESTILOS DA VISUALIZAÇÃO DE BYTES
+   ========================================== */
+
+/* Estado vazio */
+.empty-state {
+    background: #161B22;
+    border: 1px dashed #30363D;
+    border-radius: 8px;
+    padding: 30px;
+    text-align: center;
+    color: #7D8590;
+    font-size: 0.95rem;
+}
+
+/* Legenda de cores */
+.legenda-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 18px;
+    padding: 10px 14px;
+    background: #161B22;
+    border: 1px solid #30363D;
+    border-radius: 6px;
+    font-size: 0.82rem;
+    color: #C9D1D9;
+}
+
+.legenda-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.cor-box {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    flex-shrink: 0;
+}
+
+.legenda-id       { background: #1A4C8A; border: 1px solid #58A6FF; }
+.legenda-nome     { background: #1A4A2E; border: 1px solid #3FB950; }
+.legenda-preco    { background: #4A2800; border: 1px solid #F0A500; }
+.legenda-qtd      { background: #4A1C1C; border: 1px solid #F85149; }
+.legenda-excluido { background: #1C1C1C; border: 1px solid #484F58; }
+
+/* Bloco de cada registro */
+.registro-row {
+    background: #161B22;
+    border: 1px solid #30363D;
+    border-radius: 8px;
+    margin-bottom: 14px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+}
+
+.registro-row:hover {
+    border-color: #6E7681;
+}
+
+.registro-row.registro-excluido {
+    border-color: #21262D;
+    opacity: 0.55;
+}
+
+/* Cabeçalho do registro */
+.registro-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 14px;
+    background: #21262D;
+    font-size: 0.82rem;
+    color: #8B949E;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.registro-header strong {
+    color: #C9D1D9;
+}
+
+.registro-row.registro-excluido .registro-header {
+    background: #1C1C1C;
+    color: #484F58;
+}
+
+.registro-row.registro-excluido .registro-header strong {
+    color: #6E7681;
+}
+
+/* Grade de bytes */
+.bytes-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+    padding: 10px 12px 12px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* Célula individual de byte */
+.byte-box {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    font-size: 0.7rem;
+    font-weight: 600;
+    border-radius: 3px;
+    cursor: default;
+    transition: transform 0.1s, filter 0.1s;
+    user-select: none;
+}
+
+.byte-box:hover {
+    transform: scale(1.25);
+    filter: brightness(1.3);
+    z-index: 1;
+    position: relative;
+}
+
+/* Cores por campo */
+.byte-id {
+    background: #1A4C8A;
+    color: #A5C8FF;
+    border: 1px solid #2C5FA3;
+}
+
+.byte-nome {
+    background: #1A4A2E;
+    color: #7EE787;
+    border: 1px solid #25613D;
+}
+
+.byte-preco {
+    background: #4A2800;
+    color: #FFCA6B;
+    border: 1px solid #6B3D00;
+}
+
+.byte-qtd {
+    background: #4A1C1C;
+    color: #FF8B8B;
+    border: 1px solid #6B2626;
+}
+
+.byte-excluido {
+    background: #1C1C1C;
+    color: #484F58;
+    border: 1px solid #21262D;
+}
 
 footer {
     margin-top: 40px;
