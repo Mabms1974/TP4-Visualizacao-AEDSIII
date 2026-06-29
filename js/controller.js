@@ -1,141 +1,111 @@
 /**
- * ============================================
- * PARTE D – CONTROLADOR DA INTERFACE
- * Responsável: [Nome do Integrante 4]
- * ============================================
+ * controller.js – Gerencia a interação do usuário.
+ * Conecta os botões dos formulários às funções do CRUD e atualiza a
+ * visualização de bytes e mensagens de feedback.
  */
 
 document.addEventListener('DOMContentLoaded', function () {
-    // Renderiza a visualização inicial
-    if (typeof renderizarBytes === 'function') {
-        renderizarBytes('bytes-visualization');
-    }
-    
+    if (typeof renderizarBytes === 'function') renderizarBytes('bytes-visualization');
     configurarEventos();
 });
 
 function configurarEventos() {
-    // ---- Inserir ----
+    // Inserir
     document.getElementById('btn-inserir').addEventListener('click', function () {
         const id = parseInt(document.getElementById('inserir-id').value);
         const nome = document.getElementById('inserir-nome').value.trim();
         const preco = parseFloat(document.getElementById('inserir-preco').value);
-        const quantidade = parseInt(document.getElementById('inserir-qtd').value);
-        
-        if (!id || !nome || isNaN(preco) || isNaN(quantidade)) {
-            mostrarMensagem('Preencha todos os campos corretamente.', 'error');
+        const qtd = parseInt(document.getElementById('inserir-qtd').value);
+
+        if (!id || !nome || isNaN(preco) || isNaN(qtd)) {
+            mostrarMensagem('Preencha todos os campos.', 'error');
             return;
         }
-        
+
         const busca = buscarProdutoPorId(id);
         if (busca.encontrado) {
-            mostrarMensagem(`ID ${id} já existe. Use outro ID.`, 'error');
+            mostrarMensagem(`ID ${id} já existe.`, 'error');
             return;
         }
-        
-        const produto = { id, nome, preco, quantidade };
-        inserirProduto(produto);
-        mostrarMensagem(`Produto "${nome}" inserido com sucesso!`, 'success');
+
+        inserirProduto({ id, nome, preco, quantidade: qtd });
+        mostrarMensagem(`Produto "${nome}" inserido.`, 'success');
         limparCampos('inserir');
-        atualizarVisualizacao();
+        if (typeof renderizarBytes === 'function') renderizarBytes('bytes-visualization');
     });
 
-    // ---- Buscar ----
+    // Buscar
     document.getElementById('btn-buscar').addEventListener('click', function () {
         const id = parseInt(document.getElementById('buscar-id').value);
-        if (!id) {
-            mostrarMensagem('Digite um ID para buscar.', 'error');
-            return;
-        }
-        
-        const resultado = buscarProdutoPorId(id);
+        if (!id) { mostrarMensagem('Digite um ID.', 'error'); return; }
+
+        const res = buscarProdutoPorId(id);
         const div = document.getElementById('resultado-busca');
-        if (resultado.encontrado) {
-            const p = resultado.produto;
-            div.innerHTML = `
-                <div style="background: #1C2128; padding: 15px; border-radius: 6px; border-left: 4px solid #3FB950;">
-                    <strong>Produto encontrado:</strong><br>
-                    ID: ${p.id}<br>
-                    Nome: ${p.nome}<br>
-                    Preço: R$ ${p.preco.toFixed(2)}<br>
-                    Quantidade: ${p.quantidade}
-                </div>
-            `;
-            mostrarMensagem(`Produto ID ${id} encontrado.`, 'success');
+        if (res.encontrado) {
+            const p = res.produto;
+            div.innerHTML = `<div style="background:#1C2128;padding:15px;border-radius:6px;border-left:4px solid #3FB950;">
+                <strong>Produto encontrado:</strong><br>
+                ID: ${p.id}<br>Nome: ${p.nome}<br>Preço: R$ ${p.preco.toFixed(2)}<br>Quantidade: ${p.quantidade}
+            </div>`;
+            mostrarMensagem(`ID ${id} encontrado.`, 'success');
         } else {
-            div.innerHTML = `<div style="color: #F85149;">Produto com ID ${id} não encontrado.</div>`;
-            mostrarMensagem(`Produto ID ${id} não encontrado.`, 'error');
+            div.innerHTML = `<div style="color:#F85149;">ID ${id} não encontrado.</div>`;
+            mostrarMensagem(`ID ${id} não encontrado.`, 'error');
         }
     });
 
-    // ---- Alterar ----
+    // Alterar
     document.getElementById('btn-alterar').addEventListener('click', function () {
         const id = parseInt(document.getElementById('alterar-id').value);
         const campo = document.getElementById('alterar-campo').value;
         const valor = document.getElementById('alterar-valor').value.trim();
-        
-        if (!id || !valor) {
-            mostrarMensagem('Preencha ID e o novo valor.', 'error');
-            return;
-        }
-        
-        const resultado = alterarProduto(id, campo, valor);
-        if (resultado.sucesso) {
-            mostrarMensagem(resultado.mensagem, 'success');
+
+        if (!id || !valor) { mostrarMensagem('Preencha ID e novo valor.', 'error'); return; }
+
+        const res = alterarProduto(id, campo, valor);
+        if (res.sucesso) {
+            mostrarMensagem(res.mensagem, 'success');
             limparCampos('alterar');
-            atualizarVisualizacao();
+            if (typeof renderizarBytes === 'function') renderizarBytes('bytes-visualization');
         } else {
-            mostrarMensagem(resultado.mensagem, 'error');
+            mostrarMensagem(res.mensagem, 'error');
         }
     });
 
-    // ---- Excluir ----
+    // Excluir
     document.getElementById('btn-excluir').addEventListener('click', function () {
         const id = parseInt(document.getElementById('excluir-id').value);
-        if (!id) {
-            mostrarMensagem('Digite um ID para excluir.', 'error');
-            return;
-        }
-        
-        if (!confirm(`Tem certeza que deseja excluir o produto ID ${id}?`)) return;
-        
-        const resultado = excluirProduto(id);
-        if (resultado.sucesso) {
-            mostrarMensagem(resultado.mensagem, 'success');
+        if (!id) { mostrarMensagem('Digite um ID.', 'error'); return; }
+        if (!confirm(`Excluir produto ID ${id}?`)) return;
+
+        const res = excluirProduto(id);
+        if (res.sucesso) {
+            mostrarMensagem(res.mensagem, 'success');
             limparCampos('excluir');
-            atualizarVisualizacao();
+            if (typeof renderizarBytes === 'function') renderizarBytes('bytes-visualization');
         } else {
-            mostrarMensagem(resultado.mensagem, 'error');
+            mostrarMensagem(res.mensagem, 'error');
         }
     });
 }
 
-// ---- Funções auxiliares ----
-
+/**
+ * Exibe uma mensagem temporária na interface (sucesso/erro).
+ */
 function mostrarMensagem(texto, tipo) {
     const el = document.getElementById('mensagem');
     el.textContent = texto;
     el.className = 'mensagem ' + tipo;
     el.style.display = 'block';
-    
-    // Esconde após 4 segundos
     clearTimeout(window.msgTimeout);
-    window.msgTimeout = setTimeout(() => {
-        el.style.display = 'none';
-    }, 4000);
+    window.msgTimeout = setTimeout(() => { el.style.display = 'none'; }, 4000);
 }
 
+/**
+ * Limpa os campos de um formulário específico (pelo prefixo do ID).
+ */
 function limparCampos(prefixo) {
-    const inputs = document.querySelectorAll(`#${prefixo}-id, #${prefixo}-nome, #${prefixo}-preco, #${prefixo}-qtd, #${prefixo}-valor, #alterar-valor`);
+    const inputs = document.querySelectorAll(`#${prefixo}-id, #${prefixo}-nome, #${prefixo}-preco, #${prefixo}-qtd, #${prefixo}-valor`);
     inputs.forEach(inp => inp.value = '');
-    // Limpa também o resultado da busca
-    if (prefixo === 'buscar') {
-        document.getElementById('resultado-busca').innerHTML = '';
-    }
-}
-
-function atualizarVisualizacao() {
-    if (typeof renderizarBytes === 'function') {
-        renderizarBytes('bytes-visualization');
-    }
+    if (prefixo === 'buscar') document.getElementById('resultado-busca').innerHTML = '';
 }

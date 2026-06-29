@@ -1,125 +1,87 @@
 /**
- * ============================================
- * PARTE C – VISUALIZAÇÃO INTERATIVA DOS BYTES
- * Responsável: Integrante 3
- * 
- * Renderiza a representação visual do vetor de bytes na tela,
- * com cores para identificar registros e campos.
- * ============================================
+ * render.js – Renderização visual do vetor de bytes.
+ * Exibe cada byte com cores diferenciadas por campo (ID, Nome, Preço, Quantidade)
+ * e inclui legenda explicativa.
  */
 
 /**
- * Renderiza a visualização dos bytes no container especificado.
- * @param {string} containerId - ID do elemento HTML onde os bytes serão renderizados.
+ * Renderiza a visualização no container especificado.
+ * @param {string} containerId - ID do elemento HTML alvo.
  */
 function renderizarBytes(containerId) {
     const container = document.getElementById(containerId);
     if (!container) return;
 
-    // Carrega o vetor de bytes atual
     const byteArray = carregarDados();
-    
-    // Se o banco de dados estiver vazio
     if (byteArray.length === 0) {
-        container.innerHTML = `
-            <div class="empty-state">
-                <p>📭 O arquivo "dados.bin" está vazio. Insira um produto acima para começar!</p>
-            </div>
-        `;
+        container.innerHTML = `<div class="empty-state">📭 Nenhum dado cadastrado.</div>`;
         return;
     }
 
-    container.innerHTML = ''; // Limpa a visualização anterior
+    container.innerHTML = '';
 
-    // Cria a legenda explicativa dos campos
+    // Legenda
     const legenda = document.createElement('div');
     legenda.className = 'legenda-container';
     legenda.innerHTML = `
-        <span class="legenda-item"><span class="cor-box legenda-id"></span> ID (4 bytes)</span>
-        <span class="legenda-item"><span class="cor-box legenda-nome"></span> Nome (50 bytes)</span>
-        <span class="legenda-item"><span class="cor-box legenda-preco"></span> Preço (8 bytes)</span>
-        <span class="legenda-item"><span class="cor-box legenda-qtd"></span> Quantidade (4 bytes)</span>
-        <span class="legenda-item"><span class="cor-box legenda-excluido"></span> Excluído (Todos os bytes 0)</span>
+        <span class="legenda-item"><span class="cor-box legenda-id"></span> ID</span>
+        <span class="legenda-item"><span class="cor-box legenda-nome"></span> Nome</span>
+        <span class="legenda-item"><span class="cor-box legenda-preco"></span> Preço</span>
+        <span class="legenda-item"><span class="cor-box legenda-qtd"></span> Quantidade</span>
+        <span class="legenda-item"><span class="cor-box legenda-excluido"></span> Excluído</span>
     `;
     container.appendChild(legenda);
 
-    // Itera sobre o array de bytes em blocos de registros
+    // Itera sobre cada registro
     for (let i = 0; i < byteArray.length; i += TAMANHO_REGISTRO) {
-        const registroDiv = document.createElement('div');
-        registroDiv.className = 'registro-row';
-        
-        // Verifica se o registro está excluído logicamente
         const excluido = isRegistroExcluido(byteArray, i);
-        if (excluido) {
-            registroDiv.classList.add('registro-excluido');
-        }
+        const registroDiv = document.createElement('div');
+        registroDiv.className = 'registro-row' + (excluido ? ' registro-excluido' : '');
 
-        // Título do registro (linha)
-        const registroHeader = document.createElement('div');
-        registroHeader.className = 'registro-header';
-        
-        const numeroRegistro = (i / TAMANHO_REGISTRO) + 1;
+        // Cabeçalho do registro
+        const header = document.createElement('div');
+        header.className = 'registro-header';
+        const num = (i / TAMANHO_REGISTRO) + 1;
         if (excluido) {
-            registroHeader.innerHTML = `<span><strong>Registro #${numeroRegistro}</strong> (Excluído/Livre)</span> <span>Offset: ${i}</span>`;
+            header.innerHTML = `<span><strong>Registro #${num}</strong> (Excluído)</span> <span>Offset: ${i}</span>`;
         } else {
-            // Reconstrói o produto apenas para exibir seu ID/Nome no cabeçalho de forma informativa
-            const produto = bytesParaProduto(byteArray, i);
-            registroHeader.innerHTML = `<span><strong>Registro #${numeroRegistro}</strong> - ID: ${produto.id} (${produto.nome})</span> <span>Offset: ${i}</span>`;
+            const prod = bytesParaProduto(byteArray, i);
+            header.innerHTML = `<span><strong>Registro #${num}</strong> - ID: ${prod.id} (${prod.nome})</span> <span>Offset: ${i}</span>`;
         }
-        registroDiv.appendChild(registroHeader);
+        registroDiv.appendChild(header);
 
         // Grade de bytes
-        const bytesGrid = document.createElement('div');
-        bytesGrid.className = 'bytes-grid';
+        const grid = document.createElement('div');
+        grid.className = 'bytes-grid';
 
         for (let j = 0; j < TAMANHO_REGISTRO; j++) {
-            const bytePos = i + j;
-            const byteVal = byteArray[bytePos];
-            
-            const byteBox = document.createElement('span');
-            byteBox.className = 'byte-box';
+            const byteVal = byteArray[i + j];
+            const hex = (byteVal & 0xFF).toString(16).toUpperCase().padStart(2, '0');
 
-            // Formatação hexadecimal de 2 caracteres (ex: "0A", "FF")
-            // Converte valor com sinal de volta para representação 0-255 sem sinal
-            const unsignedVal = byteVal & 0xFF;
-            const hexStr = unsignedVal.toString(16).toUpperCase().padStart(2, '0');
-            byteBox.textContent = hexStr;
+            const box = document.createElement('span');
+            box.className = 'byte-box';
+            box.textContent = hex;
 
-            // Determina a classe de cor de acordo com o campo
-            let campoNome = '';
+            // Aplica a classe de cor conforme o campo
             if (excluido) {
-                byteBox.classList.add('byte-excluido');
-                campoNome = 'Excluído';
+                box.classList.add('byte-excluido');
             } else if (j >= OFFSET_QUANTIDADE) {
-                byteBox.classList.add('byte-qtd');
-                campoNome = 'Quantidade';
+                box.classList.add('byte-qtd');
             } else if (j >= OFFSET_PRECO) {
-                byteBox.classList.add('byte-preco');
-                campoNome = 'Preço';
+                box.classList.add('byte-preco');
             } else if (j >= OFFSET_NOME) {
-                byteBox.classList.add('byte-nome');
-                campoNome = 'Nome';
+                box.classList.add('byte-nome');
             } else {
-                byteBox.classList.add('byte-id');
-                campoNome = 'ID';
+                box.classList.add('byte-id');
             }
 
-            // Representação de caractere legível se possível
-            let charRepr = '';
-            if (unsignedVal >= 32 && unsignedVal <= 126) {
-                charRepr = ` ('${String.fromCharCode(unsignedVal)}')`;
-            }
-
-            // Tooltip descritiva para facilitar auditoria
-            byteBox.title = `Byte Offset: ${bytePos}\nPosição no Registro: ${j}\nCampo: ${campoNome}\nValor Decimal: ${byteVal}\nValor Hex: 0x${hexStr}${charRepr}`;
-
-            bytesGrid.appendChild(byteBox);
+            box.title = `Offset ${i+j} | Hex 0x${hex} | Dec ${byteVal}`;
+            grid.appendChild(box);
         }
 
-        registroDiv.appendChild(bytesGrid);
+        registroDiv.appendChild(grid);
         container.appendChild(registroDiv);
     }
 }
 
-// Exporta globalmente
 window.renderizarBytes = renderizarBytes;

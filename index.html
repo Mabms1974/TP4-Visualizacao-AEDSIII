@@ -3,21 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRUD de Produtos - Visualização em Bytes</title>
+    <title>CRUD de Produtos – Visualização em Bytes</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <header>
         <h1>📦 CRUD de Produtos com Visualização em Bytes</h1>
-        <p>Disciplina AEDs III · PUC Minas</p>
+        <p>AEDs III · PUC Minas</p>
     </header>
 
     <main>
-        <!-- Formulários -->
+        <!-- Formulários para as 4 operações -->
         <section id="forms">
-            <!-- Inserir -->
             <div class="form-card">
-                <h2>➕ Inserir Produto</h2>
+                <h2>➕ Inserir</h2>
                 <div class="form-row">
                     <input type="number" id="inserir-id" placeholder="ID">
                     <input type="text" id="inserir-nome" placeholder="Nome">
@@ -27,9 +26,8 @@
                 </div>
             </div>
 
-            <!-- Buscar -->
             <div class="form-card">
-                <h2>🔍 Buscar Produto</h2>
+                <h2>🔍 Buscar</h2>
                 <div class="form-row">
                     <input type="number" id="buscar-id" placeholder="ID">
                     <button id="btn-buscar">Buscar</button>
@@ -37,9 +35,8 @@
                 <div id="resultado-busca" class="result-box"></div>
             </div>
 
-            <!-- Alterar -->
             <div class="form-card">
-                <h2>✏️ Alterar Produto</h2>
+                <h2>✏️ Alterar</h2>
                 <div class="form-row">
                     <input type="number" id="alterar-id" placeholder="ID">
                     <select id="alterar-campo">
@@ -52,9 +49,8 @@
                 </div>
             </div>
 
-            <!-- Excluir -->
             <div class="form-card">
-                <h2>🗑️ Excluir Produto</h2>
+                <h2>🗑️ Excluir</h2>
                 <div class="form-row">
                     <input type="number" id="excluir-id" placeholder="ID">
                     <button id="btn-excluir">Excluir</button>
@@ -62,21 +58,21 @@
             </div>
         </section>
 
-        <!-- Mensagem de feedback -->
+        <!-- Feedback ao usuário -->
         <div id="mensagem" class="mensagem"></div>
 
         <!-- Visualização dos bytes -->
         <section id="visualizacao">
-            <h2>🧩 Visualização dos Bytes (Arquivo)</h2>
+            <h2>🧩 Visualização dos Bytes</h2>
             <div id="bytes-visualization"></div>
         </section>
     </main>
 
     <footer>
-        <p>Trabalho Prático 4 · AEDs III · PUC Minas</p>
+        <p>TP4 · AEDs III · PUC Minas</p>
     </footer>
 
-    <!-- Carrega as bibliotecas e scripts -->
+    <!-- Scripts carregados na ordem correta -->
     <script src="js/ByteStream.js"></script>
     <script src="js/dados.js"></script>
     <script src="js/crud.js"></script>
