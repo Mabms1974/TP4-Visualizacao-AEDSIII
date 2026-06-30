@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
 function configurarEventos() {
     // Inserir
     document.getElementById('btn-inserir').addEventListener('click', function () {
-        const id = parseInt(document.getElementById('inserir-id').value);
+        const idStr = document.getElementById('inserir-id').value.trim();
         const nome = document.getElementById('inserir-nome').value.trim();
         const preco = parseFloat(document.getElementById('inserir-preco').value);
         const qtd = parseInt(document.getElementById('inserir-qtd').value);
