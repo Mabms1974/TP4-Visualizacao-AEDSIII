@@ -10,15 +10,15 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function configurarEventos() {
-    // Inserir
+    // ---------- Inserir ----------
     document.getElementById('btn-inserir').addEventListener('click', function () {
-        const idStr = document.getElementById('inserir-id').value.trim();
+        const id = parseInt(document.getElementById('inserir-id').value.trim());
         const nome = document.getElementById('inserir-nome').value.trim();
         const preco = parseFloat(document.getElementById('inserir-preco').value);
         const qtd = parseInt(document.getElementById('inserir-qtd').value);
 
-        if (!id || !nome || isNaN(preco) || isNaN(qtd)) {
-            mostrarMensagem('Preencha todos os campos.', 'error');
+        if (isNaN(id) || !nome || isNaN(preco) || isNaN(qtd)) {
+            mostrarMensagem('Preencha todos os campos corretamente.', 'error');
             return;
         }
 
@@ -34,10 +34,13 @@ function configurarEventos() {
         if (typeof renderizarBytes === 'function') renderizarBytes('bytes-visualization');
     });
 
-    // Buscar
+    // ---------- Buscar ----------
     document.getElementById('btn-buscar').addEventListener('click', function () {
-        const id = parseInt(document.getElementById('buscar-id').value);
-        if (!id) { mostrarMensagem('Digite um ID.', 'error'); return; }
+        const id = parseInt(document.getElementById('buscar-id').value.trim());
+        if (isNaN(id)) {
+            mostrarMensagem('Digite um ID numérico.', 'error');
+            return;
+        }
 
         const res = buscarProdutoPorId(id);
         const div = document.getElementById('resultado-busca');
@@ -54,13 +57,20 @@ function configurarEventos() {
         }
     });
 
-    // Alterar
+    // ---------- Alterar ----------
     document.getElementById('btn-alterar').addEventListener('click', function () {
-        const id = parseInt(document.getElementById('alterar-id').value);
+        const id = parseInt(document.getElementById('alterar-id').value.trim());
         const campo = document.getElementById('alterar-campo').value;
         const valor = document.getElementById('alterar-valor').value.trim();
 
-        if (!id || !valor) { mostrarMensagem('Preencha ID e novo valor.', 'error'); return; }
+        if (isNaN(id)) {
+            mostrarMensagem('Digite um ID numérico.', 'error');
+            return;
+        }
+        if (!valor) {
+            mostrarMensagem('Digite o novo valor.', 'error');
+            return;
+        }
 
         const res = alterarProduto(id, campo, valor);
         if (res.sucesso) {
@@ -72,10 +82,13 @@ function configurarEventos() {
         }
     });
 
-    // Excluir
+    // ---------- Excluir ----------
     document.getElementById('btn-excluir').addEventListener('click', function () {
-        const id = parseInt(document.getElementById('excluir-id').value);
-        if (!id) { mostrarMensagem('Digite um ID.', 'error'); return; }
+        const id = parseInt(document.getElementById('excluir-id').value.trim());
+        if (isNaN(id)) {
+            mostrarMensagem('Digite um ID numérico.', 'error');
+            return;
+        }
         if (!confirm(`Excluir produto ID ${id}?`)) return;
 
         const res = excluirProduto(id);
