@@ -17,15 +17,34 @@ document.addEventListener('DOMContentLoaded', function () {
 function configurarEventos() {
     // ---- Inserir ----
     document.getElementById('btn-inserir').addEventListener('click', function () {
-        const id = parseInt(document.getElementById('inserir-id').value);
+        const idStr = document.getElementById('inserir-id').value.trim();
         const nome = document.getElementById('inserir-nome').value.trim();
-        const preco = parseFloat(document.getElementById('inserir-preco').value);
-        const quantidade = parseInt(document.getElementById('inserir-qtd').value);
-        
-        if (!id || !nome || isNaN(preco) || isNaN(quantidade)) {
+        const precoStr = document.getElementById('inserir-preco').value.trim();
+        const qtdStr = document.getElementById('inserir-qtd').value.trim();
+
+        if (!idStr || !nome || !precoStr || !qtdStr) {
             mostrarMensagem('Preencha todos os campos corretamente.', 'error');
             return;
         }
+
+        if (!/^\d+$/.test(idStr) || parseInt(idStr, 10) < 1) {
+            mostrarMensagem('ID inválido. Digite um número inteiro positivo.', 'error');
+            return;
+        }
+
+        if (!/^\d+(\.\d+)?$/.test(precoStr)) {
+            mostrarMensagem('Preço inválido. Digite um número positivo.', 'error');
+            return;
+        }
+
+        if (!/^\d+$/.test(qtdStr)) {
+            mostrarMensagem('Quantidade inválida. Digite um número inteiro positivo.', 'error');
+            return;
+        }
+
+        const id = parseInt(idStr, 10);
+        const preco = parseFloat(precoStr);
+        const quantidade = parseInt(qtdStr, 10);
         
         const busca = buscarProdutoPorId(id);
         if (busca.encontrado) {

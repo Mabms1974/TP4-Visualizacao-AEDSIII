@@ -229,17 +229,19 @@ function alterarProduto(id, campo, valor) {
             novosBytes = stringParaBytes(valor.trim(), _TAM_NOME);
 
         } else if (campo === 'preco') {
-            const preco = parseFloat(valor);
-            if (isNaN(preco) || preco < 0) {
+            const precoStr = valor.trim();
+            if (!/^\d+(\.\d+)?$/.test(precoStr)) {
                 return { sucesso: false, mensagem: 'Preço inválido. Digite um número positivo.' };
             }
+            const preco = parseFloat(precoStr);
             novosBytes = doubleParaBytes(preco);
 
         } else if (campo === 'quantidade') {
-            const qtd = parseInt(valor, 10);
-            if (isNaN(qtd) || qtd < 0) {
+            const qtdStr = valor.trim();
+            if (!/^\d+$/.test(qtdStr)) {
                 return { sucesso: false, mensagem: 'Quantidade inválida. Digite um inteiro positivo.' };
             }
+            const qtd = parseInt(qtdStr, 10);
             novosBytes = intParaBytes(qtd);
 
         } else {
