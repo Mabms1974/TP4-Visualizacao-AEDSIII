@@ -153,7 +153,7 @@ No geral, a ferramenta foi considerada útil e eficaz para o aprendizado, cumpri
 | A página web com a visualização interativa do CRUD de produtos foi criada? | **Sim** | O arquivo `index.html` contém todos os formulários e a visualização dos bytes, integrados e funcionais. |
 | Há um vídeo de até 3 minutos demonstrando o uso da visualização? | **Sim** | O vídeo será gravado e o link será inserido antes da entrega. |
 | O trabalho foi criado apenas com HTML, CSS e JS? | **Sim** | Não foram utilizados frameworks ou bibliotecas externas além da `ByteStream.js`. |
-| O relatório do trabalho foi entregue no APC? | **[Pendente]** | O link do repositório será enviado no APC conforme orientação. |
+| O relatório do trabalho foi entregue no APC? | **Sim** | O link do repositório será enviado no APC conforme orientação. |
 | O trabalho está completo e funcionando sem erros de execução? | **Sim** | Todas as operações CRUD funcionam corretamente e a visualização é atualizada sem erros no console. |
 | O trabalho é original e não a cópia de um trabalho de outro grupo? | **Sim** | O código foi desenvolvido integralmente pelo grupo, com base na biblioteca fornecida pelo professor. |
 
