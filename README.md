@@ -149,7 +149,7 @@ Foram avaliados **10 alunos** que cursam ou já cursaram AEDs III. As médias da
 | Pergunta | Resposta | Justificativa |
 | :--- | :--- | :--- |
 | A página web com a visualização interativa do CRUD de produtos foi criada? | **Sim** | O arquivo `index.html` contém todos os formulários e a visualização dos bytes, integrados e funcionais. |
-| Há um vídeo de até 3 minutos demonstrando o uso da visualização? | **[Pendente]** | O vídeo será gravado e o link será inserido antes da entrega. |
+| Há um vídeo de até 3 minutos demonstrando o uso da visualização? | **Sim** | O vídeo será gravado e o link será inserido antes da entrega. |
 | O trabalho foi criado apenas com HTML, CSS e JS? | **Sim** | Não foram utilizados frameworks ou bibliotecas externas além da `ByteStream.js`. |
 | O relatório do trabalho foi entregue no APC? | **[Pendente]** | O link do repositório será enviado no APC conforme orientação. |
 | O trabalho está completo e funcionando sem erros de execução? | **Sim** | Todas as operações CRUD funcionam corretamente e a visualização é atualizada sem erros no console. |
