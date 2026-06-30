@@ -159,7 +159,7 @@ Foram avaliados **10 alunos** que cursam ou já cursaram AEDs III. As médias da
 
 ## 🎥 Vídeo de Demonstração
 
-🔗 [Link do vídeo de demonstração (até 3 minutos)](https://youtu.be/...)
+🔗 [Link do vídeo de demonstração](https://www.youtube.com/watch?v=BZPx6owiaW0)
 
 ---
 
