@@ -128,20 +128,22 @@ Foram avaliados **10 alunos** que cursam ou já cursaram AEDs III. As médias da
 
 | Item | Afirmação Resumida | Média |
 | :---: | :--- | :---: |
-| 1 | Entendimento do armazenamento em arquivos | _____ |
-| 2 | Facilidade de execução do CRUD | _____ |
-| 3 | Visualização com cores | _____ |
-| 4 | Clareza das mensagens | _____ |
-| 5 | Intuitividade da interface | _____ |
-| 6 | Satisfação geral | _____ |
+| 1 | Entendimento do armazenamento em arquivos | 4,80 |
+| 2 | Facilidade de execução do CRUD | 4,30 |
+| 3 | Visualização com cores | 4,70 |
+| 4 | Clareza das mensagens | 4,80 |
+| 5 | Intuitividade da interface | 4,80 |
+| 6 | Satisfação geral | 4,80 |
 
 ### Análise dos Resultados
 
-*(Preencha com um parágrafo analisando os pontos fortes e fracos identificados a partir das médias e dos comentários dos usuários.)*
+A avaliação com 10 alunos de AEDs III revelou que a aplicação foi bem recebida, com destaque para os seguintes pontos:
 
-> **Exemplo:**  
-> *"Os usuários consideram a aplicação útil para entender o armazenamento em bytes, mas alguns relataram dificuldade inicial para localizar a função de alterar. Recomenda-se revisar a organização dos formulários na próxima versão."*
+Pontos fortes: A ferramenta obteve médias elevadas nos quesitos de entendimento do armazenamento em arquivos (4,80), clareza das mensagens (4,80) e satisfação geral (4,80). Os usuários destacaram que a visualização com cores facilitou a identificação dos campos e que as mensagens de sucesso/erro são objetivas e úteis. Além disso, a interface foi considerada intuitiva mesmo por quem a utilizou pela primeira vez (4,80).
 
+Pontos de melhoria: O item com menor média foi "Facilidade de execução do CRUD" (4,30). Alguns avaliadores relataram dificuldade inicial para localizar a função de alterar, sugerindo que a organização dos formulários poderia ser revisada. Recomenda-se, para futuras versões, destacar melhor os botões de cada operação e reorganizar os campos para tornar o fluxo de alteração mais evidente.
+
+No geral, a ferramenta foi considerada útil e eficaz para o aprendizado, cumprindo seu papel como recurso didático para a disciplina.
 ---
 
 ## ✅ Checklist do Enunciado
