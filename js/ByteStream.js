@@ -337,9 +337,12 @@ const ByteStream = (() => {
   };
 })();
 
-// ─────────────────────────────────────────────
-// Exportação para ambientes Node.js / ES Modules
-// ─────────────────────────────────────────────
+// ─── EXPORTAÇÃO PARA NAVEGADOR ───
+if (typeof window !== 'undefined') {
+    window.ByteStream = ByteStream;
+}
+
+// ─── EXPORTAÇÃO PARA NODE.JS ───
 if (typeof module !== "undefined" && module.exports) {
   module.exports = ByteStream;
 }
